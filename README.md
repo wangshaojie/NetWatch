@@ -55,6 +55,11 @@ NetWatch 是一款面向 Windows 用户的端口管理工具，帮助你查看�
 
 ---
 
+## 界面展示
+
+![alt text](ScreenShot_2026-05-19_134718_076.png)
+![alt text](ScreenShot_2026-05-19_134809_332.png)
+
 ## 开发与打包
 
 ### 环境要求
