@@ -1,5 +1,20 @@
 # NetWatch - 端口管理工具
 
+## ⬇️ 下载即用
+
+<p align="center">
+  <a href="https://github.com/wangshaojie/NetWatch/releases">
+    <img src="https://img.shields.io/badge/Download-NetWatch.exe-green?style=for-the-badge&logo=github" alt="Download">
+  </a>
+</p>
+
+<p align="center">
+  <b>点击上方按钮或访问 <a href="https://github.com/wangshaojie/NetWatch/releases">Releases 页面</a> 下载编译好的 exe 文件</b><br>
+  <span style="color: #718096;">双击即可运行，无需安装 Python 或任何依赖</span>
+</p>
+
+---
+
 ## 这是什么
 
 NetWatch 是一款面向 Windows 用户的端口管理工具，帮助你查看电脑正在使用哪些网络端口，以及这些端口背后对应的是哪个程序。
