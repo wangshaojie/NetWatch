@@ -1,6 +1,6 @@
-# NetWatch - 端口管理工具
+# NetWatch - Windows 端口管理工具
 
-## ⬇️ 下载即用
+## 下载即用
 
 <p align="center">
   <a href="https://github.com/wangshaojie/NetWatch/releases">
@@ -19,61 +19,49 @@
 
 NetWatch 是一款面向 Windows 用户的端口管理工具，帮助你查看电脑正在使用哪些网络端口，以及这些端口背后对应的是哪个程序。
 
-## 解决什么问题
+## 功能特点
 
-在使用电脑的过程中，或者Claude Code写代码的时候，你可能会遇到这些问题：
-
-- **端口被占用** - 安装某个软件时提示 "端口被占用"，但不知道是哪个程序
-- **疑似恶意进程** - 发现某个进程占用了不熟悉的端口，想确认它是不是正常程序
-- **手动命令太麻烦** - 用 `netstat` 命令查看端口需要记忆参数、复制 PID、再查进程名，步骤繁琐
-- **担心误杀系统进程** - 想结束一个可疑进程，但不确定它是否是系统关键进程，贸然结束可能导致系统不稳定
-
-## 适用人群
-
-- **普通用户**：排查端口冲突问题
-- **开发者**：检查开发服务占用的端口（如 Tomcat、MySQL、Redis 等）
-- **运维/安全人员**：快速识别异常端口和进程
-
-## 使用场景
-
-1. 安装软件时端口冲突，定位是哪个程序占用了端口
-2. 电脑网速异常，查看是否有异常进程在占用网络
-3. 开发环境端口起不来，一键查看并结束占用端口的进程
-4. 怀疑电脑被植入后门，检查是否有不明进程在监听端口
-
-## 设计原则
-
-- **简单直接**：打开就能看到所有端口信息，无需任何配置
-- **安全优先**：系统关键进程（如 System、svchost、lsass 等）被列入保护名单，防止误杀导致系统崩溃
-- **确认再行动**：每次终止进程前都会弹出确认框，明确显示即将结束的是哪个端口和进程
-
-## 界面预览
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  NetWatch 🌐                    [搜索...]    ↻ Refresh      │
-├─────────────────────────────────────────────────────────────┤
-│ Protocol │ Local Address │ Port │  PID  │ Process Name     │
-├─────────────────────────────────────────────────────────────┤
-│   TCP    │    0.0.0.0    │ 8080 │ 1234  │ java.exe         │
-│   TCP    │    127.0.0.1  │ 3306 │ 5678  │ mysqld.exe       │
-│   UDP    │    0.0.0.0    │  53  │  4321 │ dns.exe          │
-│                                        ...        [Kill]    │
-└─────────────────────────────────────────────────────────────┘
-│  Total: 156 ports │ Last refreshed: 14:32:05               │
-└─────────────────────────────────────────────────────────────┘
-```
-
-## 一句话总结
-
-> 打开软件 → 看到所有端口和进程 → 需要时安全终止 → 一切尽在掌握
+- **实时端口监控**：显示所有 TCP/UDP 端口及其对应进程
+- **快速搜索**：支持按端口号模糊搜索
+- **安全终止**：系统关键进程受保护，误杀风险
+- **主题切换**：支持浅色/深色模式
+- **性能优化**：使用 psutil 高效获取数据
 
 ---
 
-## 界面展示
+## 技术架构
 
-![alt text](ScreenShot_2026-05-19_134718_076.png)
-![alt text](ScreenShot_2026-05-19_134809_332.png)
+```
+NetWatch/
+├── main.py                    # 应用入口
+├── core/
+│   ├── theme_manager.py       # 主题管理（浅色/深色）
+│   └── single_instance.py      # 单实例控制
+├── models/
+│   └── port_model.py           # 端口连接数据模型
+├── services/
+│   ├── port_scanner.py         # 端口扫描服务（基于 psutil）
+│   └── process_killer.py       # 进程终止服务
+└── ui/
+    └── main_window.py          # 主窗口界面
+```
+
+### 核心模块
+
+| 模块 | 说明 |
+|------|------|
+| `PortScanner` | 使用 psutil.net_connections() 获取所有端口连接 |
+| `ProcessKiller` | 安全终止进程，支持系统进程保护 |
+| `ThemeManager` | 管理浅色/深色主题样式 |
+| `PortConnection` | 数据模型，包含端口、进程、CPU、内存等信息 |
+
+### 性能优化
+
+- **异步扫描**：后台线程执行端口扫描，UI 保持响应
+- **进程缓存**：避免重复查询进程信息
+- **快速 CPU 获取**：使用 10ms 间隔获取 CPU 使用率
+
+---
 
 ## 开发与打包
 
@@ -82,47 +70,49 @@ NetWatch 是一款面向 Windows 用户的端口管理工具，帮助你查看�
 - Python 3.8+
 - Windows 10/11
 
-### 依赖
-
-```
-PyQt5 >= 5.15.0
-```
-
 ### 安装依赖
 
 ```bash
-pip install PyQt5
+pip install -r requirements.txt
 ```
 
 ### 运行源码
 
 ```bash
-python netwatch.py
+python main.py
 ```
 
 ### 打包为 exe
 
-使用 PyInstaller：
-
 ```bash
-# 安装 PyInstaller
-pip install pyinstaller
-
-# 打包为单文件 exe
 pyinstaller NetWatch.spec
 ```
 
 打包后的文件位于 `dist/NetWatch.exe`
 
-### 文件结构
+---
 
-```
-NetWatch/
-├── netwatch.py          # 源代码
-├── NetWatch.spec         # PyInstaller 配置文件
-├── logo.ico             # 应用图标
-├── logo.webp            # 原始图标素材
-├── requirements.txt     # Python 依赖
-├── SPEC.md              # 功能规格文档
-└── README.md            # 本文档
-```
+## 系统进程保护
+
+以下系统进程被列入保护名单，无法被终止：
+
+`system`, `smss.exe`, `csrss.exe`, `wininit.exe`, `services.exe`, `lsass.exe`, `svchost.exe`, `winlogon.exe`, `explorer.exe`, `dllhost.exe`, `rundll32.exe`, `taskmgr.exe`, `winmgmt.exe`, `spoolsv.exe`, `fontdrvhost.exe`, `dwm.exe`, `conhost.exe`, `ctfmon.exe`, `sihost.exe`, `logonui.exe`, `WUDFHost.exe`, `audiodg.exe`, `SearchIndexer.exe`
+
+---
+
+## 界面预览
+
+![NetWatch 界面](assets/screenshot.png)
+
+---
+
+## 更新日志
+
+### v1.1.0
+- 使用 psutil 替代 netstat/tasklist，大幅提升性能
+- MVC 架构重构
+- 添加浅色/深色主题切换
+- 优化端口扫描速度
+
+### v1.0.0
+- 初始版本

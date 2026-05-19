@@ -3,11 +3,18 @@
 block_cipher = None
 
 a = Analysis(
-    ['netwatch.py'],
+    ['main.py'],
     pathex=[],
     binaries=[],
-    datas=[('logo.ico', '.')],
-    hiddenimports=['PyQt5', 'PyQt5.sip'],
+    datas=[
+        ('assets/icon.ico', 'assets'),
+    ],
+    hiddenimports=[
+        'PyQt5',
+        'PyQt5.sip',
+        'psutil',
+        'psutil._windows',
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -38,5 +45,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='logo.ico',
+    icon='assets/icon.ico',
 )
