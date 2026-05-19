@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import PyQt5; print\\('PyQt5 version:', PyQt5.Qt.PYQT_VERSION_STR\\)\")",
+      "Bash(pip --version)",
+      "Bash(pip list *)",
+      "Bash(python -m pip install PyQt5)",
+      "Bash(python -m py_compile /d/test/NetWatch/netwatch.py)",
+      "Bash(timeout 5 python netwatch.py)",
+      "Bash(pip show *)",
+      "Bash(python -m pip install pyinstaller)",
+      "Bash(python -m PyInstaller --onefile --windowed --name NetWatch --add-data \"netwatch.py;.\" netwatch.py)",
+      "Bash(python -m PyInstaller NetWatch.spec)",
+      "Bash(rm -rf /d/test/NetWatch/dist /d/test/NetWatch/build /d/test/NetWatch/*.spec)",
+      "Bash(python -m PyInstaller --onedir --console=False --name NetWatch netwatch.py)",
+      "Bash(python -m PyInstaller --onedir --noconsole --name NetWatch netwatch.py)",
+      "Bash(python -m pip install nuitka)",
+      "Bash(python -m nuitka --standalone --onefile --windows-disable-console --enable-plugin=pyqt5 --output-filename=NetWatch.exe netwatch.py)",
+      "Bash(python -m pip install cx_Freeze)",
+      "Bash(python setup.py build)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill //F //IM NetWatch.exe)",
+      "Bash(python -c \"from PIL import Image; img = Image.open\\('/d/test/NetWatch/logo.png'\\); img.save\\('/d/test/NetWatch/logo.ico', format='ICO', sizes=[\\(16,16\\),\\(32,32\\),\\(48,48\\),\\(256,256\\)]\\)\")",
+      "Bash(python -c \"from PIL import Image; img = Image.open\\(r'd:\\\\\\\\test\\\\\\\\NetWatch\\\\\\\\logo.png'\\); img.save\\(r'd:\\\\\\\\test\\\\\\\\NetWatch\\\\\\\\logo.ico', format='ICO', sizes=[\\(16,16\\),\\(32,32\\),\\(48,48\\),\\(256,256\\)]\\)\")",
+      "Bash(python -c ' *)",
+      "mcp__MiniMax__understand_image"
+    ],
+    "additionalDirectories": [
+      "D:\\test\\NetWatch"
+    ]
+  }
+}

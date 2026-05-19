@@ -1,0 +1,6 @@
+README.md
+setup.py
+NetWatch.egg-info/PKG-INFO
+NetWatch.egg-info/SOURCES.txt
+NetWatch.egg-info/dependency_links.txt
+NetWatch.egg-info/top_level.txt

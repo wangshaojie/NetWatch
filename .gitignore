@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+
+# Build artifacts
+build/
+dist/
+
+# IDE
+.claude/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
